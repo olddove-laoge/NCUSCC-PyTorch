@@ -1013,7 +1013,7 @@ plt.show()
 ```
 &nbsp;      这是最终呈现的图片
 &nbsp;      注：这里g代表gpu，w代表worker的数量，b代表batch的数量
-![8b4a307e57aff7dea25224c2de29b660.png](en-resource://database/592:1)
+![8b4a307e57aff7dea25224c2de29b660.png](https://www.helloimg.com/i/2024/10/13/670bcaeab36f8.png)
 ## Ⅴ.实验过程中遇到的问题及解决方案
 &nbsp;      
 ### ①.虚拟机平台选择
