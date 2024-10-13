@@ -1,0 +1,7 @@
+Optimization Technique,Training Time (seconds),Accuracy (%),Memory Usage (MB),Epochs
+cpu,293.87,62.07,662.47,10
+g-initial,404.15,61.02,994.33,10
+g-torch.cuda.amp,526.15,62.47,1062.43,10
+g-b32-w4,66.44,60.39,977.11,10
+g-b16-w4,113.21,64.91,988.84,10
+g-b16w8,109.48,62.77,994.29,10
