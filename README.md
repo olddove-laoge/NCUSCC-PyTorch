@@ -73,8 +73,11 @@
 ##### CUDA Toolkit的作用
 
 &nbsp;      1.加速计算：深度学习涉及大量的矩阵运算和数据并行处理，这些计算在 GPU 上能比在 CPU 上更快地执行。CUDA Toolkit 提供了一套 API，允许开发者直接在 NVIDIA 的 GPU 上执行计算，显著提高了深度学习模型训练和推理的速度。
+
 &nbsp;      2.GPU 编程：CUDA Toolkit 提供了一套完整的工具集，包括编译器、库和调试工具，使得开发者能够为 NVIDIA GPU 编写并优化程序。这使得深度学习框架能够在 GPU 上实现高效的并行运算。
+
 &nbsp;      3.灵活性和控制：CUDA Toolkit 提供了较低级别的控制，允许开发者自定义 GPU 上的并行计算，从而为特定的深度学习任务优化性能。
+
 &nbsp;      4.研究和开发：在深度学习的研究领域，快速迭代和实验是非常重要的。CUDA Toolkit 提供的 GPU 加速能力使得我们得以快速训练和测试新的模型架构和算法。
 
 
@@ -132,6 +135,7 @@ export PATH=$PATH:$LD_LIBRARY_PATH:$CUDA_HOME
 ### ③.Anaconda与PyTorch的安装
 ####  1.conda环境的搭建
 &nbsp;      **在讲解conda环境搭建过程之前，我要先讲解一下为什么我们要搭建conda环境来下载PyTorch，而不是直接使用pip3进行安装。**
+
 &nbsp;      1.环境隔离：Anaconda 提供了环境管理功能，允许我们为不同的项目创建隔离的环境。如果不使用 Anaconda，我们可能需要需要手动管理 Python 环境，以防止不同项目之间的依赖冲突。更通俗的说，使用pip3下载可能会对我们执行不同的项目造成影响。
 
 &nbsp;      2.缺少高级功能：Anaconda 提供了一些高级功能，如环境导出导入、包搜索等，这些在不使用 Anaconda 的情况下可能不可用。
