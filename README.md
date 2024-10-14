@@ -61,6 +61,18 @@
 为了方便后续的操作，我在命令行中输入 `sudo -i ` 进入root账户
 &nbsp;
 ### ②.NVIDIA 驱动和 CUDA Toolkit的安装
+#### &nbsp;      **在这个部分正式开始之前，我们先要弄明白，我们为什么要安装NVIDIA驱动和CUDA Toolkit，它们对于深度学习作用是什么？不能知其然而不知其所以然。**
+##### NVIDIA的作用
+&nbsp;      1.硬件兼容性：NVIDIA 驱动确保了操作系统能够识别和正确使用 NVIDIA 的 GPU 硬件。没有正确的驱动程序，GPU 可能无法在系统中被识别，或者无法正常工作。
+&nbsp;      2.性能优化：NVIDIA 定期更新驱动程序，以优化 GPU 的性能。这些更新可能包括对新硬件的支持、对旧硬件的性能改进、以及对深度学习框架的优化。
+&nbsp;      3.CUDA 支持：NVIDIA 驱动通常包含对 CUDA（Compute Unified Device Architecture）的支持，这是 NVIDIA 提供的一个并行计算平台和编程模型。深度学习框架如 TensorFlow 和 PyTorch 依赖于 CUDA 来利用 NVIDIA GPU 的并行处理能力。（换句话说，这两者存在双向联动）
+##### CUDA Toolkit的作用
+&nbsp;      1.加速计算：深度学习涉及大量的矩阵运算和数据并行处理，这些计算在 GPU 上能比在 CPU 上更快地执行。CUDA Toolkit 提供了一套 API，允许开发者直接在 NVIDIA 的 GPU 上执行计算，显著提高了深度学习模型训练和推理的速度。
+&nbsp;      2.GPU 编程：CUDA Toolkit 提供了一套完整的工具集，包括编译器、库和调试工具，使得开发者能够为 &nbsp;      3.NVIDIA GPU 编写并优化程序。这使得深度学习框架能够在 GPU 上实现高效的并行运算。
+灵活性和控制：CUDA Toolkit 提供了较低级别的控制，允许开发者自定义 GPU 上的并行计算，从而为特定的深度学习任务优化性能。
+&nbsp;      4.研究和开发：在深度学习的研究领域，快速迭代和实验是非常重要的。CUDA Toolkit 提供的 GPU 加速能力使得我们得以快速训练和测试新的模型架构和算法。
+
+
 #### 1.安装Nvidia驱动
 &nbsp;      在命令行中输入 `nvidia-smi`  查询自己的显卡驱动版本，这里我的版本已经是新版，故跳过更新步骤，稍后我会在第五个大板块讲解更新步骤
 
@@ -68,6 +80,12 @@
 
 &nbsp;      
 #### 2.安装CUDA Tookit
+
+&nbsp;      在安装CUDA Tookit之前，我们应该先下载gcc，以防止后面下载时报错临时安装浪费时间，因为CUDA Toolkit的安装刚需gcc环境。
+&nbsp;      `sudo apt install gcc`
+&nbsp;      我们也可以同时下载一些配套的基础环境
+&nbsp;      `sudo apt install build-essentia`
+
 &nbsp;      安装CUDA的顺序有两种，一种是决定pytorch的版本以此来选择cuda版本，第二种是先决定cuda的版本在以此来选择pytorch的版本，在这里我先是以第二种顺序进行操作，但最终出现了巨大失误导致必须重装系统，这里我将以第一种顺序讲解安装过程，稍后我将会在第五个大板块中讲解出错原因
 &nbsp;      打开      [PyTorch](https://pytorch.org/get-started/previous-versions/)   
 
@@ -108,6 +126,12 @@ export PATH=$PATH:$LD_LIBRARY_PATH:$CUDA_HOME
 &nbsp;      
 ### ③.Anaconda与PyTorch的安装
 ####  1.conda环境的搭建
+&nbsp;      **在讲解conda环境搭建过程之前，我要先讲解一下为什么我们要搭建conda环境来下载PyTorch，而不是直接使用pip3进行安装。**
+&nbsp;      1.环境隔离：Anaconda 提供了环境管理功能，允许我们为不同的项目创建隔离的环境。如果不使用 Anaconda，我们可能需要需要手动管理 Python 环境，以防止不同项目之间的依赖冲突。更通俗的说，使用pip3下载可能会对我们执行不同的项目造成影响。
+&nbsp;      2.缺少高级功能：Anaconda 提供了一些高级功能，如环境导出导入、包搜索等，这些在不使用 Anaconda 的情况下可能不可用。
+&nbsp;      3.系统资源：手动管理 Python 环境和库可能会导致系统资源的混乱，特别是当多个项目需要不同版本的相同库时。
+&nbsp;      4.更新和维护：如果不使用 Anaconda，那么更新 PyTorch 或其依赖库可能更加困难，因为我们需要手动管理每个组件的更新。
+&nbsp;      接下来，我将讲解如何搭建conda环境
 &nbsp;      在Ubunt虚拟机自带的firefox浏览器中，进入 [Anaconda](https://www.anaconda.com/) 进行Anaconda的安装与下载
 
 ![68457393d34e118c73a61e17e58845b4.png](https://www.helloimg.com/i/2024/10/13/670bc1feb40a3.png)
