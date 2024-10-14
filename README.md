@@ -63,13 +63,18 @@
 ### ②.NVIDIA 驱动和 CUDA Toolkit的安装
 #### &nbsp;      **在这个部分正式开始之前，我们先要弄明白，我们为什么要安装NVIDIA驱动和CUDA Toolkit，它们对于深度学习作用是什么？不能知其然而不知其所以然。**
 ##### NVIDIA的作用
+
 &nbsp;      1.硬件兼容性：NVIDIA 驱动确保了操作系统能够识别和正确使用 NVIDIA 的 GPU 硬件。没有正确的驱动程序，GPU 可能无法在系统中被识别，或者无法正常工作。
+
 &nbsp;      2.性能优化：NVIDIA 定期更新驱动程序，以优化 GPU 的性能。这些更新可能包括对新硬件的支持、对旧硬件的性能改进、以及对深度学习框架的优化。
+
 &nbsp;      3.CUDA 支持：NVIDIA 驱动通常包含对 CUDA（Compute Unified Device Architecture）的支持，这是 NVIDIA 提供的一个并行计算平台和编程模型。深度学习框架如 TensorFlow 和 PyTorch 依赖于 CUDA 来利用 NVIDIA GPU 的并行处理能力。（换句话说，这两者存在双向联动）
+
 ##### CUDA Toolkit的作用
+
 &nbsp;      1.加速计算：深度学习涉及大量的矩阵运算和数据并行处理，这些计算在 GPU 上能比在 CPU 上更快地执行。CUDA Toolkit 提供了一套 API，允许开发者直接在 NVIDIA 的 GPU 上执行计算，显著提高了深度学习模型训练和推理的速度。
-&nbsp;      2.GPU 编程：CUDA Toolkit 提供了一套完整的工具集，包括编译器、库和调试工具，使得开发者能够为 &nbsp;      3.NVIDIA GPU 编写并优化程序。这使得深度学习框架能够在 GPU 上实现高效的并行运算。
-灵活性和控制：CUDA Toolkit 提供了较低级别的控制，允许开发者自定义 GPU 上的并行计算，从而为特定的深度学习任务优化性能。
+&nbsp;      2.GPU 编程：CUDA Toolkit 提供了一套完整的工具集，包括编译器、库和调试工具，使得开发者能够为 NVIDIA GPU 编写并优化程序。这使得深度学习框架能够在 GPU 上实现高效的并行运算。
+&nbsp;      3.灵活性和控制：CUDA Toolkit 提供了较低级别的控制，允许开发者自定义 GPU 上的并行计算，从而为特定的深度学习任务优化性能。
 &nbsp;      4.研究和开发：在深度学习的研究领域，快速迭代和实验是非常重要的。CUDA Toolkit 提供的 GPU 加速能力使得我们得以快速训练和测试新的模型架构和算法。
 
 
