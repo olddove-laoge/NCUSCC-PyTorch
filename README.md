@@ -128,10 +128,15 @@ export PATH=$PATH:$LD_LIBRARY_PATH:$CUDA_HOME
 ####  1.conda环境的搭建
 &nbsp;      **在讲解conda环境搭建过程之前，我要先讲解一下为什么我们要搭建conda环境来下载PyTorch，而不是直接使用pip3进行安装。**
 &nbsp;      1.环境隔离：Anaconda 提供了环境管理功能，允许我们为不同的项目创建隔离的环境。如果不使用 Anaconda，我们可能需要需要手动管理 Python 环境，以防止不同项目之间的依赖冲突。更通俗的说，使用pip3下载可能会对我们执行不同的项目造成影响。
+
 &nbsp;      2.缺少高级功能：Anaconda 提供了一些高级功能，如环境导出导入、包搜索等，这些在不使用 Anaconda 的情况下可能不可用。
+
 &nbsp;      3.系统资源：手动管理 Python 环境和库可能会导致系统资源的混乱，特别是当多个项目需要不同版本的相同库时。
+
 &nbsp;      4.更新和维护：如果不使用 Anaconda，那么更新 PyTorch 或其依赖库可能更加困难，因为我们需要手动管理每个组件的更新。
+
 &nbsp;      接下来，我将讲解如何搭建conda环境
+
 &nbsp;      在Ubunt虚拟机自带的firefox浏览器中，进入 [Anaconda](https://www.anaconda.com/) 进行Anaconda的安装与下载
 
 ![68457393d34e118c73a61e17e58845b4.png](https://www.helloimg.com/i/2024/10/13/670bc1feb40a3.png)
