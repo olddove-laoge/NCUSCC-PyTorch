@@ -1113,8 +1113,21 @@ plt.show()
 &nbsp;      正如我之前所说，与WSL不同，VMware等传统虚拟机软件创建的是一个完全隔离的虚拟环境。使用的是虚拟的硬件，而VMvare等平台做到直通功能又十分艰难，我第一次搭建Anaconda环境时，就因此卡在了安装nvidia驱动这一步，后来经过查询csdn等平台才选择了使用WSL2，轻而易举地做到了NVIDIA驱动与CUDATOOLKIT的安装
 &nbsp;      
 ### ②.GPU驱动装置与CUDATOOLKIT下载方式
-&nbsp;      
-&nbsp;      在这两步中，我犯了同样的错误，即在windows系统上安装好适用于Linux系统的安装包后，使用cp指令将安装包复制到Linux系统上，事实上，这是不安全的，这可能会导致安装包被放在一个即存在又不存在的Downloads文件中，即使下载成功，也会遇到其他奇怪的问题，从而导致PyTorch下载失败，比如说，conda文件内可能出现错误的版本号以及莫名其妙的波浪号，我vim很多了相关文件也没找到所谓的的~在哪里，换源之后，又出现了所谓的多余的“2.7”，后面重装了一遍系统，使用Ubuntu自带的firefox浏览器进行下载后，才解决了这个问题
+#### a.NVIDIA驱动的更新
+&nbsp;      之前我说过，我的虚拟机中NVIDIA驱动已经是较新的版本，故跳过更新，实际上，我们的NVIDIA驱动版本至少要高于525，才能实现我们后面的操作，接下来，我将讲解如何更新NVIDIA驱动
+
+&nbsp;      驱动安装包传送门：[NVIDIA驱动](https://www.nvidia.cn/Download/index.aspx?lanhttps://www.nvidia.cn/Download/index.aspx?lang=cn) （请在虚拟机中进行这一步）
+
+  ![ac1c4ddf3d7d7d4e9fb90c4fe4f49ec7.png](https://www.helloimg.com/i/2024/10/17/6710b32d23541.png)
+  
+&nbsp;      按照我们的系统，选择合适的版本，下载安装包即可。
+
+&nbsp;      请记住你的安装路径，下载完成后，我们在命令行中输入 `sudo bash 安装包路径`  ，接下来，跟着安装引导走，无视所有警告即可。
+
+&nbsp;      安装完成后，在命令行中输入 `nvidia-smi` 查询自己的驱动状态，发现驱动版本已更新即可
+
+#### b.CUDATOOLKIT下载方式
+&nbsp;      在这一步中，我犯了一个错误，即在windows系统上安装好适用于Linux系统的安装包后，使用cp指令将安装包复制到Linux系统上，事实上，这是不安全的，这可能会导致安装包被放在一个即存在又不存在的Downloads文件中，即使下载成功，也会遇到其他奇怪的问题，从而导致PyTorch下载失败，比如说，conda文件内可能出现错误的版本号以及莫名其妙的波浪号，我vim很多了相关文件也没找到所谓的的~在哪里，换源之后，又出现了所谓的多余的“2.7”，后面重装了一遍系统，使用Ubuntu自带的firefox浏览器进行下载后，才解决了这个问题
 ```
 (base) olddove@localhost:~$ conda install pytorch torchvision torchaudio cudatoolkit=11.5 -c pytorch Solving environment: failed InvalidVersionSpecError: Invalid version spec: =2.7
 
