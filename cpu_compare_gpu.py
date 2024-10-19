@@ -35,20 +35,28 @@ print(f'Test set size: {len(testset)}')
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 5)
+        # 第一个卷积层，输入通道3（RGB图像），输出通道32，卷积核大小3x3
+        self.conv1 = nn.Conv2d(3, 32, 3, stride=1, padding=1)
+        # 池化层，窗口大小2x2，步长2
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
+        # 第二个卷积层，输入通道32，输出通道64，卷积核大小3x3
+        self.conv2 = nn.Conv2d(32, 64, 3, stride=1, padding=1)
+        # 第一个全连接层，输入特征数为64*8*8（因为经过两次池化后，特征图大小减半两次），输出特征数256
+        self.fc1 = nn.Linear(64 * 8 * 8, 256)
+        # 第二个全连接层，输入特征数256，输出特征数10（CIFAR-10数据集的类别数）
+        self.fc2 = nn.Linear(256, 10)
 
     def forward(self, x):
+        # 应用第一个卷积层和激活函数ReLU
         x = self.pool(F.relu(self.conv1(x)))
+        # 应用第二个卷积层和激活函数ReLU
         x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 16 * 5 * 5)
+        # 展平特征图，为全连接层准备
+        x = x.view(-1, 64 * 8 * 8)
+        # 应用第一个全连接层和激活函数ReLU
         x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
+        # 应用第二个全连接层
+        x = self.fc2(x)
         return x
 
 def train_and_evaluate(device):
