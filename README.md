@@ -1241,9 +1241,10 @@ if __name__ == '__main__':
 
 ### 特别鸣谢
 **[Kimi](https://kimi.moonshot.cn/)**
-wwb的茶饼
-10+ 的打压
-rainbow rainbow提醒了我输入通道相关内容
+wwb的茶饼 [玩微博森sei](https://github.com/wwb-cloud)
+10+ 的打压 [冰雪女王](https://github.com/shiheat)
+rainbow rainbow提醒了我输入通道相关内容 [大南昌彩彩](https://github.com/CAICAIIs)
 炒蒜的大家
+
 
 ## 老鸽 2024.10.17
