@@ -49,26 +49,39 @@
 确保虚拟化设置正确，方便后面搭建乌班图虚拟机
 ##### 2.安装wsl2
 &nbsp;      以管理员身份打开Windows PowerShell 并执行以下指令
+
 &nbsp;      &nbsp;  `  wsl --set-default-version 2`
+
 &nbsp;     &nbsp;     `wsl --update`
+
 &nbsp;      完成后重启系统
 #### 3.搭建 **Ubuntu 22.04 LTS**
 &nbsp;      搭建乌班图虚拟机有很多种方法，包括通过命令行下载安装，以及在Windows自带的应用商城中下载等，为了节约时间，这里直接使用第二种方法。
 ![1f988326f3d82f200eb145aba3448fe8.png](https://www.helloimg.com/i/2024/10/17/6710ad5c379e6.png)
 选择需要的版本下载后直接打开,设置初始账号密码
+
 为了方便后续的操作，我在命令行中输入 `sudo -i ` 进入root账户
 &nbsp;
 ### ②.NVIDIA 驱动和 CUDA Toolkit的安装
 #### &nbsp;      **在这个部分正式开始之前，我们先要弄明白，我们为什么要安装NVIDIA驱动和CUDA Toolkit，它们对于深度学习作用是什么？不能知其然而不知其所以然。**
 ##### NVIDIA的作用
+
 &nbsp;      1.硬件兼容性：NVIDIA 驱动确保了操作系统能够识别和正确使用 NVIDIA 的 GPU 硬件。没有正确的驱动程序，GPU 可能无法在系统中被识别，或者无法正常工作。
-&nbsp;      2.性能优化：NVIDIA 定期更新驱动程序，以优化 GPU 的性能。这些更新可能包括对新硬件的支持、对旧硬件的性能改进、以及对深度学习框架的优化。
+
+&nbsp;      2.性能优化：NVIDIA 定期更新驱动程序，以优化 GPU 的性能。这些更新可能包括对新硬件的支持、对旧硬件的性能改进、以及对深度学习框架的优化
+。
+
 &nbsp;      3.CUDA 支持：NVIDIA 驱动通常包含对 CUDA（Compute Unified Device Architecture）的支持，这是 NVIDIA 提供的一个并行计算平台和编程模型。深度学习框架如 TensorFlow 和 PyTorch 依赖于 CUDA 来利用 NVIDIA GPU 的并行处理能力。（换句话说，这两者存在双向联动）
+
 ##### CUDA Toolkit的作用
 &nbsp;      1.加速计算：深度学习涉及大量的矩阵运算和数据并行处理，这些计算在 GPU 上能比在 CPU 上更快地执行。CUDA Toolkit 提供了一套 API，允许开发者直接在 NVIDIA 的 GPU 上执行计算，显著提高了深度学习模型训练和推理的速度。
+
 &nbsp;      2.GPU 编程：CUDA Toolkit 提供了一套完整的工具集，包括编译器、库和调试工具，使得开发者能够为 NVIDIA GPU 编写并优化程序。这使得深度学习框架能够在 GPU 上实现高效的并行运算。
+
 &nbsp;      3.灵活性和控制：CUDA Toolkit 提供了较低级别的控制，允许开发者自定义 GPU 上的并行计算，从而为特定的深度学习任务优化性能。
+
 &nbsp;      4.研究和开发：在深度学习的研究领域，快速迭代和实验是非常重要的。CUDA Toolkit 提供的 GPU 加速能力使得我们得以快速训练和测试新的模型架构和算法。
+
 
 
 #### 1.安装Nvidia驱动
@@ -77,44 +90,71 @@
 &nbsp;      
 #### 2.安装CUDA Toolkit
 &nbsp;      在安装CUDA Tookit之前，我们应该先下载gcc，以防止后面下载时报错临时安装浪费时间，因为CUDA Toolkit的安装刚需gcc环境。
+
 &nbsp;      `sudo apt install gcc`
+
 &nbsp;      我们也可以同时下载一些配套的基础环境
+
 &nbsp;      `sudo apt install build-essentia`
+
 &nbsp;      安装CUDA的顺序有两种，一种是决定pytorch的版本以此来选择cuda版本，第二种是先决定cuda的版本在以此来选择pytorch的版本，在这里我先是以第二种顺序进行操作，但最终出现了巨大失误导致必须重装系统，这里我将以第一种顺序讲解安装过程，稍后我将会在第五个大板块中讲解出错原因
+
 &nbsp;      打开      [PyTorch](https://pytorch.org/get-started/previous-versions/)   
 ![b6c128ff6a0b5636543f2fcf29c3a33d.png](https://www.helloimg.com/i/2024/10/17/6710ad5ce6a63.png)
+
 &nbsp;      打开上方网站，我们可以查询到各版本的PyTorch支持的CUDA版本
+
 &nbsp;      这里我选择安装较早的11.8版本，以避免版本过新BUG多和版本过老功能缺失的问题
+
 &nbsp;      由网站可知支持PyTorch11.8版本的CUDA版本为11.8，这就是我们要下载的版本
+
 &nbsp;      决定好我们要下载的CUDA版本后 打开 [CUDA](https://developer.nvidia.com/cuda-toolkit-archive) 
+
 &nbsp;      找到我要下载的版本后，根据我的系统版本，如图选择
 ![1e25580c45b27addbe6f23bea793e3ac.png](https://www.helloimg.com/i/2024/10/17/6710ad5ce6a63.png)
+
 &nbsp;      接下来，在Ubuntu命令行输入网页提供给我们的代码，进入CUDA的安装程序
+
 ![30aa7fe1ff3dda2b395163bf01e2c4fc.png](https://www.helloimg.com/i/2024/10/17/6710ad5ce6a63.png)
 （当时忘记截图了，暂时用一下别人的图）
+
 &nbsp;      输入accept
+
 &nbsp;      接下来一直回车，等待安装完毕即可
+
 &nbsp;      接下来，我们进行环境配置
+
 &nbsp;      输入`vim ~/.bashrc`  编辑该文件
+
 &nbsp;      将下列配置写进去
+
 ```
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/extras/CPUTI/lib64
 export CUDA_HOME=/usr/local/cuda/bin
 export PATH=$PATH:$LD_LIBRARY_PATH:$CUDA_HOME
 ```
+
 &nbsp;      保存并提出，输入 `source ~/.bashrc` 完成配置更新
+
 &nbsp;      输入 `nvcc -V` 检查配置是否正确
+
 &nbsp;      ![ac1c4ddf3d7d7d4e9fb90c4fe4f49ec7.png](https://www.helloimg.com/i/2024/10/17/6710ad5ce6a63.png)
+
 &nbsp;      如图，我们可以知道我们成功下载了CUDA11.8版本，可喜可贺
+
 &nbsp;      **！！！！ 注 ：这几部一定要在root账户下完成，否则可能出现下载下来的版本与安装包不匹配的情况**
 &nbsp;      
 ### ③.Anaconda与PyTorch的安装
 ####  1.conda环境的搭建
 &nbsp;      **在讲解conda环境搭建过程之前，我要先讲解一下为什么我们要搭建conda环境来下载PyTorch，而不是直接使用pip3进行安装。**
 &nbsp;      1.环境隔离：Anaconda 提供了环境管理功能，允许我们为不同的项目创建隔离的环境。如果不使用 Anaconda，我们可能需要需要手动管理 Python 环境，以防止不同项目之间的依赖冲突。更通俗的说，使用pip3下载可能会对我们执行不同的项目造成影响。
+
 &nbsp;      2.缺少高级功能：Anaconda 提供了一些高级功能，如环境导出导入、包搜索等，这些在不使用 Anaconda 的情况下可能不可用。
+
 &nbsp;      3.系统资源：手动管理 Python 环境和库可能会导致系统资源的混乱，特别是当多个项目需要不同版本的相同库时。
+
 &nbsp;      4.更新和维护：如果不使用 Anaconda，那么更新 PyTorch 或其依赖库可能更加困难，因为我们需要手动管理每个组件的更新。
+
 &nbsp;      接下来，我将讲解如何搭建conda环境
 
 &nbsp;      在Ubunt虚拟机自带的firefox浏览器中，进入 [Anaconda](https://www.anaconda.com/) 进行Anaconda的安装与下载
@@ -122,13 +162,17 @@ export PATH=$PATH:$LD_LIBRARY_PATH:$CUDA_HOME
 &nbsp;      提供邮箱后，选择我们所需要的安装包
 ![e4d2e5e34e8d4cb053ea5ea6c254d4d9.png](https://www.helloimg.com/i/2024/10/17/6710ae65c428a.png)
 &nbsp;      然后，在Ubuntu命令行输入`sudo bash /root/Anaconda3-2023.03-1-Linux-x86_64.sh` 进行Anaconda的安装
+
 &nbsp;      输入之后，一直回车直到出现要求你输入yes或no的指令时，输入yes，不出意外的话，会出现这个界面
 ![214ae07ed21aa90fa2caf89520ace206.png](https://www.helloimg.com/i/2024/10/17/6710af30ad3c7.png)
 &nbsp;      这个地方，我建议不要修改路径，否则可能对后续的操作带来麻烦，直接回车即可
+
 &nbsp;      **下面这一步非常重要！！**！千万不要手快了按回车，这里我们应该输入yes，再按回车去初始化anaconda，要不然需要自己去配置路径，这样非常麻烦
 ![b3306ec418226e7d93f57c38f64922f7.png](https://www.helloimg.com/i/2024/10/17/6710af30afabc.png)
 &nbsp;      接下来，静候Anaconda安装完成即可
+
 &nbsp;      接下来，我们执行 `conda create -n dl python=3.8` 创建python3.8且名为dl的环境
+
 &nbsp;      之后，出现这样的界面，输入yes即可
 ![c5f6af50b77207fc59f22dd767677553.png](https://www.helloimg.com/i/2024/10/17/6710af310eb0a.png)
 &nbsp;      这样，我们的conda环境就创建好了
@@ -142,17 +186,23 @@ conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=
 
 ```
 &nbsp;      跟着安装提示进行即可，此时我们的PyTorch就安装完成了，接下来，我们检验一下PyTorch是否安装成功
+
 &nbsp;      通过 `python` 命令，进入python，导入torch库 `import torch` 并回车，然后执行 `print(torch.cuda.is_available())` 并回车
+
 ![c393eb793a8b2b28b49b1d2bd1f47543.png](https://www.helloimg.com/i/2024/10/17/6710af312d8f7.png)
 &nbsp;      输出True，说明我们成功安装了PyTorch环境，同时也说明你的pytorch是可以正常调用GPU去进行计算的
+
 &nbsp;      以上，我们就完成了Anaconda与PyTorch的安装，接下来，我们将实现数据集准备及训练模型搭建
 &nbsp;      
 ## Ⅱ.数据集准备及训练模型搭建
 &nbsp;   
 ### ①.CIFAR-10 数据集的下载与处理
 &nbsp;      在完成这一步之前，我们应该下载一个能够运行python程序的编辑器，以方便代码的书写，保存和运行，这里我选择了vscode。使用vscode可以选择在Windows主系统上进行远程连接，或者直接在虚拟机内下载，这里我为了节约时间，选择了后者
+
 &nbsp;      **！！！！注意：在使用VScode时，检查一下我们的Python环境，我们选择的Python环境一定是我们刚刚创建好的dl环境内的，因为只有在这个环境中我们安装了PyTorch，否则的话torch无法正常使用，我之前就中了这个坑**
+
 &nbsp;      CIFAR-10数据集的下载和处理我找到的有两种方式，一种是使用非官方的，他人提供的，一种是官方的，在之前我并没有找到官方的方式，故使用了第一种，但是遇到了严重的test set size = 0 问题导致运行精度无法测算，后来找到了官方的处理方法才得以解决，稍后我会在第五个大板块中讲解。下面是官方加载数据的指令
+
 ```python
 import torchvision
 import torchvision.transforms as transforms
@@ -372,6 +422,7 @@ else:
     print('No test data found.')
 ```
 &nbsp;      在这里，第一个卷积层的输出通道数为6，第二个卷积层的输出通道数为16。第一个全连接层有120个输出单元，第二个全连接层有84个输出单元，最后一个全连接层有10个输出单元。这其实是相对来说没那么优质的模型，稍后我会在优化方式这一板块中详细讲解
+
 &nbsp;      以10次循环为例，我们可以得到以下结果
 ```
 [1, 2000] loss: 2.214
@@ -518,20 +569,35 @@ else:
     print("CUDA is not available. Cannot compare with GPU.")
 ```
 &nbsp;      以2次为例，我们得到以下结果
+
 &nbsp;      Memory Usage: 659.07 MB
-&nbsp;      Finished Training
+
+&nbsp;      Finished 
+
 &nbsp;      Training took 57.07 seconds on cpu
+
 &nbsp;      Accuracy of the network on the test images: 54.07%
-&nbsp;      Memory Usage: 997.85 MB
+
+&nbsp;      Memory Usage: 997.85 
+
 &nbsp;      Finished Training
+
 &nbsp;      Training took 84.73 seconds on cuda
+
 &nbsp;      Accuracy of the network on the test images: 53.79%
+
 &nbsp;      Speedup on GPU compared to CPU: 0.67x
+
 &nbsp;      可以看到在循环数为2的情况下，CPU的各方面表现得都比GPU好
+
 &nbsp;      那么10次呢？
-&nbsp;      在10次的情况下，CPU上运行模型的评价时间，精度，占用内存分别为293.87s，62.07%，662.47MB，仍然是比GPU有锈
+
+&nbsp;      在10次的情况下，CPU上运行模型的评价时间，精度，占用内存分别为293.87s，62.07%，662.47MB，仍然是比GPU优秀
+
 &nbsp;      如果我运算次数扩大到30次，或者更多呢？
+
 &nbsp;      在30次的情况下，我们可以发现GPU的精度开始超过CPU，那我们可以合理推测，在数据量逐渐增大的情况下，GPU的精度会逐渐优于CPU
+
 &nbsp;      关于GPU运算时间远超CPU，查询资料后，我有以下两个推论
 
 * 数据传输时间：将数据从CPU传输到GPU需要时间，如果处理的数据量很小，这个传输时间可能会抵消GPU加速的优势。对于小规模的数据或模型，CPU可能会更快。
@@ -542,6 +608,7 @@ else:
 ### ②.不同的优化方式
 #### 1.batch_size的调整
 &nbsp;      调整 Batch Size 是深度学习中优化模型性能的重要策略之一。Batch Size直接影响模型训练的稳定性、收敛速度和最终的泛化能力。这是我目前发现的最高效的优化方法
+
 &nbsp;      下面我将展示这种优化后的代码
 ```python
 import os
@@ -653,7 +720,9 @@ else:
     print('No test data found.')
 ```
 &nbsp;      仅仅是增长了一倍的batch_size值，我们的运行速度就提高了整整一倍，并获得了4-5个百分点的精度提升。
+
 &nbsp;      这种方法的唯一缺点就是可能由于数据量的问题导致if i % 2000 == 1999: 这个条件错误，导致无法查看每2000个批量的loss值。
+
 &nbsp;      另外，我们最好不要将batch值设的过大，虽然速度会提升很多，但是精度也会随之迅速下降。
 #### 2.混合精度训练
 &nbsp;      相比其他的方式，混合精度似乎提升并不高，但是将这种优化方式和其他方式结合，往往能够得到1+1>2的效果，下面我将展示只采用混合精度的代码。
@@ -781,6 +850,7 @@ else:
 &nbsp;      通过计算，我们可以得到通过混合精度运算优化后的平均时长，精度，和内存占用分别为526.15s，62.47%，1062.43MB，可以看到精度方面有着不小的提升。
 #### 3.调整workers
 &nbsp;      在DataLoader中设置num_workers参数，使用多线程或多进程同时加载数据，可以有效减少数据加载瓶颈
+
 &nbsp;      注：经过测试，发现调整workers和调整batch_size结合才是最高效的方法，下面是代码
 ```python
 import os
@@ -893,16 +963,23 @@ else:
 ```
 
 &nbsp;      经过多次测试，发现将batch_size设为16，workers设为4才是最优解
+
 &nbsp;      数据大概为下
+
 &nbsp;      Memory Usage: 988.84 MB
+
 &nbsp;      Finished Training
+
 &nbsp;      Training took 111.21 seconds
+
 &nbsp;      Accuracy of the network on the test images: 64.09%
 
 #### 4.使用cudnn
 &nbsp;      本来一开始下载cuda后我就准备下载cudnn来着，但是由于找错了下载地址以及注册账号耽误了一段时间，后面才下载成功，接下来，我将讲解cudnn的下载以及如何使用它来优化我们的模型
+
 &nbsp;      [cudnn](https://developer.nvidia.com/cudnn-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local)
 &nbsp;      这个是可以直接打开找到下载指令的网址，无需登录或其他操作，只需要选择好我们系统的配置后将网址提供给我们的下载指令复制在虚拟机中运行即可
+
 &nbsp;      以我的系统配置为例，依次输入以下指令。
 ```bash
 wget https://developer.download.nvidia.com/compute/cudnn/9.5.0/local_installers/cudnn-local-repo-ubuntu2204-9.5.0_1.0-1_amd64.deb
@@ -916,11 +993,17 @@ sudo apt-get update
 sudo apt-get -y install cudnn
 ```
 &nbsp;      因为我们下载的CUDA版本为11.8，故输入适用于CUDA11的安装指令
+
 &nbsp;      `sudo apt-get -y install cudnn-cuda-11`
+
 &nbsp;       这样，我们的cudnn就下载好了，接下来，我将讲解如何通过cudnn实现模型优化
+
 &nbsp;       其实这一步十分简单，只需要在我们的模型训练循坏开始前输入
+
 &nbsp;       `torch.backends.cudnn.benchmark = True`
+
 &nbsp;       即可启用cudnn加速了！
+
 &nbsp;       cudnn其实对于模型的精度并没有多少提升，但是它极大的提高了我们模型运行的速度，在调整batch和workers发挥的作用尤其明显。例如，在batch为32，workers为4的情况下，模型运行的平均时间由66.44s降到了51.26s，将近77%的时间缩减。而在batch和workers都为默认值的初始状态下，时间仅仅从404.15s降到了393.50s，提速效果也就没那么明显了，总的来说，cudnn可以显著提高batch和workers数量提高时模型的运行速度
 
 #### 5.修改输入通道和输出单元
@@ -957,6 +1040,7 @@ class Net(nn.Module):
 
 ```
 &nbsp;      我们运行一次试一试
+
 ```python
 Memory Usage: 1009.16 MB
 Finished Training
@@ -964,6 +1048,7 @@ Training took 359.94 seconds
 Accuracy of the network on the test images: 72.15%
 ```
 &nbsp;      可以明显的发现，我们的精度有了极大的提升。
+
 &nbsp;      那么如果是64，128的组合呢？
 ```python
 Memory Usage: 1077.75 MB
@@ -971,19 +1056,28 @@ Finished Training
 Training took 656.42 seconds
 Accuracy of the network on the test images: 75.01%
 ```
+
 &nbsp;      可以看到，精度有了进一步提升，但是速度也随之变慢了许多
+
 &nbsp;      顺带一提，如果是在cpu上运行，精度变化幅度不大的同时，时间会来到412.14s，可见，在输入输出通道达到合适的数量的情况下，gpu的优势会逐渐凸显。输入通道数量正是影响模型复杂度的要素之一，这与我们之前的模型复杂度较低导致CPU性能高于GPU的推论是一致的！推论与实践相符的感觉真好啊。(误
+
 &nbsp;      另外，在输入通道提高后，由于初始精度基数的提高，我们可以进一步提高batch和wokers的值，在精度变化在接受范围内的情况下，极大程度提高运行速度，如batch为62，workers为15时，精度为63.24%，运行时间降到29.66，虽然精度有所下降，但是速度得到巨大提升，适用于精度要求不高但是速度要求高的情况。
 #### 6.其他负优化行为
 注：由于是负优化，下列测试都只进行了寥寥几次，代码不进行完整的展示
 ##### &nbsp;      a.批量一体化
 
 &nbsp;      使用批量一体化后，精度反而下降，时间变长
+
 &nbsp;      Memory Usage: 1026.61 MB
+
 &nbsp;      Finished Training
+
 &nbsp;      Training took 489.16 seconds
+
 &nbsp;      Accuracy of the network on the test images: 51.08%
+
 &nbsp;      下面是实现批量一体化的代码部分
+
 ```python
 class Net(nn.Module):
     def __init__(self):
@@ -1010,6 +1104,7 @@ Training took 409.62 seconds
 Accuracy of the network on the test images: 57.38%
 ```
 &nbsp;     ps: 在修改输入通道之后，这种方法虽然没有再负优化了，但是精度也没有进一步的提升
+
 &nbsp;      我会在第五个大板块讲解这些本应优化的策略负优化的原因
 
 ## Ⅳ.不同优化方式性能可视化
@@ -1036,6 +1131,7 @@ in-g-b128-w15,19.68,56.12,1038.43,10
 
 ```
 &nbsp;      再通过使用pandas库读取csv文件中的内容，然后再使用 matplotlib.pyplot 函数制作柱状图
+
 &nbsp;      以下是生成柱状图的代码
 ```python
 import pandas as pd
@@ -1142,12 +1238,15 @@ plt.show()
 ### ③.PyTorch安装须知
 
 &nbsp;      在之前，我提到过PyTorch安装有两种顺序，一种是决定pytorch的版本以此来选择cuda版本，第二种是先决定cuda的版本在以此来选择pytorch的版本，在第一次安装PyTorch时，我选择了第二种，这是不适合新手的。在第一次安装过程中，由于使用了第二种方法，我遇到了许多版本不兼容问题，究其根本是对CUDA 的版本通常由硬件和驱动程序决定这个细节，导致选择一个与 PyTorch 兼容的 CUDA 版本这个过程变得复杂。
+
 &nbsp;      下面是第一种方法的几个优势
 
  * PyTorch 官方网站提供了一个非常直观的安装指引，用户可以通过选择操作系统、Python 版本、CUDA 版本来获取相应的安装命令。这种方法简化了选择过程，使得新手可以更容易地找到适合自己环境的安装命令。
  * PyTorch 通常每隔一段时间就会发布新版本，通过先选择 PyTorch 版本，可以更容易地保持我们的的环境是最新的。
  * 如果先选择了CUDA的一个较老版本，可能会导致一些功能的缺失，从而导致CUDA和PyTorch版本之间的不兼容
+   
 &nbsp;      在安装cuda过程中，我还遇到了11.8版本的安装包下载后变为10.1版本的问题，登录root账户后，得到了解决
+
 &nbsp;      切记，不要在windows中下载安装包后复制到虚拟机内
  
 ### ④.CIFAR-10的正确下载方法
@@ -1218,7 +1317,9 @@ if __name__ == '__main__':
 ```
 
 &nbsp;      那么，这样做会出现什么问题呢？
+
 &nbsp;      在使用非官方方式下载的过程中，我发现无论采取什么措施，模型训练时输出的 Test set size 永远为0，从而导致无法计算出我们模型的精度，试题也就无法继续进行下去，同时，每次运行模型时，这种加载方式都会消耗大量的时间去下载数据集，造成巨大的时间浪费。
+
 &nbsp;      为什么会出现这种情况，我也不清楚，推测有可能是图像文件格式错误或是测试集目录路径错误。
 
 ### ⑤.负优化的原因
@@ -1235,8 +1336,11 @@ if __name__ == '__main__':
 ## Ⅵ.参考资料&特别鸣谢
 ### 参考资料
 >[在Windows中安装wsl2和ubuntu22.04](https://blog.csdn.net/qianbin3200896/article/details/136937960)
+>
 >[2023年最新Ubuntu安装pytorch教程](https://blog.csdn.net/qq_35768355/article/details/131261838)
+>
 >[用PyTorch搭建卷积神经网络](https://blog.csdn.net/juhanishen/article/details/123462838)
+>
 >[\[ 数据集 \] CIFAR-10 数据集介绍](https://blog.csdn.net/weixin_45084253/article/details/123597716)
 
 ### 特别鸣谢
